@@ -16,17 +16,22 @@
 
 package com.example.android.camera2basic;
 
-import android.app.Activity;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public class CameraActivity extends AppCompatActivity {
+
+    private static final int REQUEST_CAMERA_PERMISSION = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
+
         if (null == savedInstanceState) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, Camera2BasicFragment.newInstance())
