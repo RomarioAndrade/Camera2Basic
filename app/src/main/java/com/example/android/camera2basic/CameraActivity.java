@@ -16,16 +16,16 @@
 
 package com.example.android.camera2basic;
 
-import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultRegistry;
+import androidx.activity.result.contract.ActivityResultContract;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 
 public class CameraActivity extends AppCompatActivity {
-
-    private static final int REQUEST_CAMERA_PERMISSION = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class CameraActivity extends AppCompatActivity {
 
         if (null == savedInstanceState) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, Camera2BasicFragment.newInstance())
+                    .add(R.id.container, PermissionFragment.newInstance())
                     .commit();
         }
     }
