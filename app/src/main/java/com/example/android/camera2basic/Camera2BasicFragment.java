@@ -112,8 +112,6 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
      */
     private static final int STATE_PICTURE_TAKEN = 4;
 
-    private static final int REQUEST_CAMERA_PERMISSION = 200;
-
     /**
      * {@link TextureView.SurfaceTextureListener} handles several lifecycle events on a
      * {@link TextureView}.
@@ -255,12 +253,12 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
     /**
      * A {@link Semaphore} to prevent the app from exiting before closing the camera.
      */
-    private Semaphore mCameraOpenCloseLock = new Semaphore(1);
+    private final Semaphore mCameraOpenCloseLock = new Semaphore(1);
 
     /**
      * A {@link CameraCaptureSession.CaptureCallback} that handles events related to JPEG capture.
      */
-    private CameraCaptureSession.CaptureCallback mCaptureCallback
+    private final CameraCaptureSession.CaptureCallback mCaptureCallback
             = new CameraCaptureSession.CaptureCallback() {
 
         private void process(CaptureResult result) {
@@ -330,7 +328,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
      */
     private static Size chooseOptimalSize(Size[] choices, int width, int height, Size aspectRatio) {
         // Collect the supported resolutions that are at least as big as the preview Surface
-        List<Size> bigEnough = new ArrayList<Size>();
+        List<Size> bigEnough = new ArrayList<>();
         int w = aspectRatio.getWidth();
         int h = aspectRatio.getHeight();
         for (Size option : choices) {
@@ -350,9 +348,8 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
     }
 
     public static Camera2BasicFragment newInstance() {
-        Camera2BasicFragment fragment = new Camera2BasicFragment();
         //fragment.setRetainInstance(true);
-        return fragment;
+        return new Camera2BasicFragment();
     }
 
     @Override
@@ -484,7 +481,7 @@ public class Camera2BasicFragment extends Fragment implements View.OnClickListen
                 //                                          int[] grantResults)
                 // to handle the case where the user grants the permission. See the documentation
                 // for ActivityCompat#requestPermissions for more details.
-                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA},REQUEST_CAMERA_PERMISSION );
+                //ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.CAMERA},REQUEST_CAMERA_PERMISSION );
                 return;
             }
             manager.openCamera(mCameraId, mStateCallback, mBackgroundHandler);
